@@ -17,16 +17,15 @@ def role_int() -> int:
     return random.randint(1, 10)
 
 def role_valorant() -> str:
-    print(len(VAL_CHAR_NAMES))
-    return VAL_CHAR_NAMES[random.randint(0, len(VAL_CHAR_NAMES))]
+    return VAL_CHAR_NAMES[random.randint(0, len(VAL_CHAR_NAMES) - 1)]
 
 def role_legueoflegends(lane) -> str:
     if(lane.lower() not in LEAGUE_POSITIONS):
-        lane = LEAGUE_POSITIONS[random.randint(0, len(LEAGUE_POSITIONS))]
+        lane = LEAGUE_POSITIONS[random.randint(0, len(LEAGUE_POSITIONS) - 1)]
 
     champList = LEAGUE_CHAMPIONS[lane.lower()]
 
-    randChampIndex = random.randint(0, len(champList))
+    randChampIndex = random.randint(0, len(champList) - 1)
     pickedChamp = champList[randChampIndex]
 
     return lane + ' ' + pickedChamp
