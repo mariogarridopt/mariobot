@@ -1,3 +1,3 @@
-# MmarioBot
+# MarioBot
 
 Its a me!
