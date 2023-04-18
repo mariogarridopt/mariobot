@@ -10,8 +10,9 @@ LEAGUE_CHAMPIONS = {
     'adc': ['Aphelios','Ashe','Caitlyn','Draven','Ezreal','Graves','Jhin','Jinx','Kalista','Kog\'Maw','Lucian','Miss Fortune','Samira','Senna','Seraphine','Sivir','Tristana','Twitch','Varus','Vayne','Xayah'],
     'support': ['Alistar','Bard','Blitzcrank','Brand','Braum','Fiddlesticks','Galio','Janna','Karma','Leona','Lulu','Lux','Morgana','Nami','Nautilus','Pantheon','Pyke','Rakan','Senna','Seraphine','Sona','Soraka','Swain','Taric','Thresh','Vel\'Koz','Xerath','Yuumi','Zilean']
 }
+LEAGUE_BUILDS = ['full ap', 'full ad', 'hybrid ap/ad', 'tank', 'bruiser', 'assassin']
 VAL_CHAR_NAMES = ['Brimstone', 'Sage', 'Sova', 'Viper', 'Cypher', 'Phoenix',
-    'Jett', 'Raze', 'Reyna', 'Killjoy', 'Skye', 'Yoru', 'Astra', 'KAY/O']
+    'Jett', 'Raze', 'Reyna', 'Killjoy', 'Skye', 'Yoru', 'Astra', 'KAY/O', 'Gekko', 'Neon', 'Harbor']
 
 def role_int() -> int:
     return random.randint(1, 10)
@@ -23,12 +24,16 @@ def role_legueoflegends(lane) -> str:
     if(lane.lower() not in LEAGUE_POSITIONS):
         lane = LEAGUE_POSITIONS[random.randint(0, len(LEAGUE_POSITIONS) - 1)]
 
+def build_leagueoflegends(build) -> str:
+    if (build.lower() not in LEAGUE_BUILD):
+        build = LEAGUE_BUILD[random.randint(0, len(LEAGUE_BUILD) - 1)]
+
     champList = LEAGUE_CHAMPIONS[lane.lower()]
 
     randChampIndex = random.randint(0, len(champList) - 1)
     pickedChamp = champList[randChampIndex]
 
-    return lane + ' ' + pickedChamp
+    return lane + ' ' + pickedChamp + ' ' + build
 
 async def lane_autocomplete(
     interaction: discord.Interaction,
