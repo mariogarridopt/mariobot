@@ -31,8 +31,8 @@ docker compose up -d
 ⚠️ Please keep in mind that you should never commit or publicly distribute your token or API keys.⚠️
 
 We have the file `.env` and all the configs should be there and never pushed.
-```json
-    BOT_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXX.XXXXXX.XXXXXXXXXXXXXXXXXXXXXXXXXXX"
+```sh
+BOT_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXX.XXXXXX.XXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ```
 
 ## 🗨 Features & Commands
