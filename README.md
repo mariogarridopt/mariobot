@@ -41,13 +41,6 @@ Rolls (commands)
 - [X] **`roll`**
 - [X] **`valorantroll`**
 - [X] **`leagueroll`**
-- [X] **`leagueroll_random`**
-
-Music (commands)
-- [ ] **`play`**
-- [ ] **`stop`**
-- [ ] **`queue`**
-- [ ] **`skip`**
 
 Roles (feature)
 - [X] **`add role on react to message`**
@@ -55,6 +48,10 @@ Roles (feature)
 
 Time (feature)
 - [X] **`display current time on discord`**
+
+AI (feature)
+- [X] **`chat with the bot on bot channel`**
+- [X] **`Command /ai`**
 
 ## 🤝 Contributing
 

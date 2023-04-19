@@ -98,7 +98,7 @@ def run_discord_bot():
 
     @client.tree.command(name="ai", description="Ask discord personal assistant a question")
     async def ask_ai(interaction: discord.Interaction, question: str):
-        res = ai.ask_ai(str)
+        res = ai.ask_ai(question)
         await interaction.response.send_message(content=res)
     
     client.run(TOKEN)
