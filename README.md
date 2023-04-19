@@ -1,4 +1,4 @@
-![mario-banner](img/mario-baner.jpg)
+![MarioBot](img/mario-banner.jpg)
 
 # MarioBot (Discord Bot)
 > MarioBot is a mutipurpose Discord Bot built with [discord.py](https://github.com/Rapptz/discord.py)
