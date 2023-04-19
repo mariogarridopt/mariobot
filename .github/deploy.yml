@@ -1,35 +1,29 @@
-name: Deploy master
 on:
   push:
-    tags:
-    - '*'
-
+    branches:
+      - master
+  workflow_dispatch:
+  
 jobs:
-  build:
+  run_pull:
+    name: run pull
     runs-on: ubuntu-latest
+    
     steps:
-
-    - name: Checkout source code
-      uses: actions/checkout@v2
-
-    - name: Set version number
-        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+    - name: install ssh keys
+      # check this thread to understand why its needed:
+      # https://stackoverflow.com/a/70447517
+      run: |
+        install -m 600 -D /dev/null ~/.ssh/id_rsa
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
 
     - name: Create Env file
         run: |
           touch .env
           echo BOT_TOKEN=${{ secrets.BOT_TOKEN }} >> .env
 
-    - name: Generate deployment package
-      run: zip -r deploy.zip . -x '*.git*'
-
-    - name: Deploy to EB
-      uses: einaregilsson/beanstalk-deploy@v21
-      with:
-        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: DiscordBot
-        environment_name: DiscordBot-prod
-        version_label: "${{ env.RELEASE_VERSION }}"
-        region: us-west-2
-        deployment_package: deploy.zip
+    - name: connect and pull
+      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.MAIN_BRANCH }} && git pull && docker compose down && docker compose build && docker compose up -d && exit"
+    - name: cleanup
+      run: rm -rf ~/.ssh
