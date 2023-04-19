@@ -21,6 +21,7 @@ class aibot():
         self.prompt = self.init_ai_prompt()
       
     self.prompt = self.prompt + "\nHuman: " + str(question) + "\nAI:"
+    self.last_generated_time = time.time()
     
     try:
       response = openai.Completion.create(
