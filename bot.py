@@ -5,6 +5,9 @@ from typing import Optional
 import react
 import os
 import roll
+#from dotenv import load_dotenv
+
+#load_dotenv()
 
 def run_discord_bot():
     TOKEN = os.getenv('BOT_TOKEN', '')

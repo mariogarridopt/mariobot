@@ -1,10 +1,6 @@
 version: '3'
 services:
-  python:
-    image: python:3.10
+  mario-bot:
+    build: .
     env_file:
       - .env
-    volumes:
-      - .:/app
-    working_dir: /app
-    command: pip install -r requirements.txt && python main.py
