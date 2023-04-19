@@ -30,10 +30,6 @@ def run_discord_bot():
         timer_cog(client)
         print('Timer COG Started!')
 
-        # Music cog start
-        await client.add_cog(music_cog(client))
-        print('Music COG Started!')
-
         # Up and ready to go
         print(f'{client.user} is running!')
 
