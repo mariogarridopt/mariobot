@@ -95,5 +95,10 @@ def run_discord_bot():
     async def roll_league_randomLane(interaction: discord.Interaction):
         res = roll.role_legueoflegends("")
         await interaction.response.send_message(content='You are going to play ' + res)
+
+    @client.tree.command(name="ai", description="Ask discord personal assistant a question")
+    async def ask_ai(interaction: discord.Interaction, question: str):
+        res = ai.ask_ai(str)
+        await interaction.response.send_message(content=res)
     
     client.run(TOKEN)
