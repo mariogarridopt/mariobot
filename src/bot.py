@@ -4,12 +4,19 @@ from modules.timer_cog import timer_cog
 import modules.react as react
 import os
 import modules.roll as roll
+from modules.ai_assitant import aibot
 
 def run_discord_bot():
     TOKEN = os.getenv('BOT_TOKEN', '')
     if TOKEN == '':
         print('Please provide a token to this bot...')
         return
+    
+    OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+    if OPENAI_API_KEY == '':
+        print('Please provide a openai token to this bot...')
+    
+    ai = aibot(OPENAI_API_KEY)
     
     intents = discord.Intents.default()
     intents.message_content = True
@@ -31,6 +38,19 @@ def run_discord_bot():
 
         # Up and ready to go
         print(f'{client.user} is running!')
+
+    # AI Assistant
+    @client.event
+    async def on_message(message):
+        # Make sure bot doesn't get stuck in an infinite loop talking to himself
+        if message.author == client.user:
+            return
+        
+        if message.channel.id == 1098334511030349824:
+            resp = ai.ask_ai(str(message.content))
+            if resp != '':
+                await message.channel.send(resp)
+
 
     # react to message events
     @client.event
