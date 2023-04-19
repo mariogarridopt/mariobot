@@ -25,11 +25,12 @@ class aibot():
     
     try:
       response = openai.Completion.create(
-        model="text-davinci-003",
+        model="text-ada-001",
         prompt=self.prompt,
         temperature=0.9,
         max_tokens=550,
         top_p=1,
+        n=1,
         frequency_penalty=0.0,
         presence_penalty=0.6
       )
