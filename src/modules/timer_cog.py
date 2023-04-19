@@ -1,7 +1,7 @@
 import time
 from discord.ext import tasks, commands
 
-class TimerCog(commands.Cog):
+class timer_cog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.index = 0

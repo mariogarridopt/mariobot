@@ -1,2 +1,3 @@
 discord==2.2.2
 python-dotenv==0.21.1
+youtube-dl==2021.12.17

@@ -1,13 +1,10 @@
 import discord
-from discord.ext import tasks, commands
-from timerCog import TimerCog
-from typing import Optional
-import react
+from discord.ext import commands
+from modules.timer_cog import timer_cog
+from modules.music_cog import music_cog
+import modules.react as react
 import os
-import roll
-#from dotenv import load_dotenv
-
-#load_dotenv()
+import modules.roll as roll
 
 def run_discord_bot():
     TOKEN = os.getenv('BOT_TOKEN', '')
@@ -19,6 +16,7 @@ def run_discord_bot():
     intents.message_content = True
     intents.reactions = True
     intents.members = True
+    intents.voice_states = True
 
     client = commands.Bot(command_prefix="!", intents = intents)
 
@@ -29,8 +27,12 @@ def run_discord_bot():
         print(f'{str(len(synced_commands))} commands synced')
         
         # Timer cog start
-        TimerCog(client)
-        print('CogTimer Started!')
+        timer_cog(client)
+        print('Timer COG Started!')
+
+        # Music cog start
+        await client.add_cog(music_cog(client))
+        print('Music COG Started!')
 
         # Up and ready to go
         print(f'{client.user} is running!')
