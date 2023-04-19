@@ -26,7 +26,7 @@ def run_discord_bot():
         print(f'{str(len(synced_commands))} commands synced')
         
         # Timer cog start
-        timer_cog(client)
+        await client.add_cog(timer_cog(client))
         print('Timer COG Started!')
 
         # Up and ready to go
