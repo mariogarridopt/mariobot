@@ -9,7 +9,10 @@ class aibot():
   def init_ai_prompt(self):
     return "The following is a conversation with an AI assistant named MarioBot. The assistant is helpful, creative, clever, funny, and very friendly.\n\n"
 
-  def ask_ai(self, question):    
+  def ask_ai(self, question):
+    if self.prompt == "":
+      return ''
+    
     self.prompt = self.init_ai_prompt() + "Human: " + str(question) + "\nAI:"
     
     try:
@@ -28,4 +31,4 @@ class aibot():
       return response.choices[0].text
     except Exception as e:
       print(e)
-      return "MarioBot is now sleeping, please try later... :zzz: :zzz: :zzz:"
+      return "MarioBot is now sleeping... 🥱 😴 💤 We will wake him up again at 1th next month. 🤖 🤖 🤖"

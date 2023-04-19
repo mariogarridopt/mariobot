@@ -33,6 +33,7 @@ docker compose up -d
 We have the file `.env` and all the configs should be there and never pushed.
 ```sh
 BOT_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXX.XXXXXX.XXXXXXXXXXXXXXXXXXXXXXXXXXX"
+OPENAI_API_KEY="sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ```
 
 ## 🗨 Features & Commands
