@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 from modules.timer_cog import timer_cog
-from modules.music_cog import music_cog
 import modules.react as react
 import os
 import modules.roll as roll
