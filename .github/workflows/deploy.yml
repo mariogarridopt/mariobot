@@ -21,6 +21,6 @@ jobs:
         ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
 
     - name: connect and pull
-      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.MAIN_BRANCH }} && touch .env && echo BOT_TOKEN=${{ secrets.BOT_TOKEN }} > .env && echo OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env && git pull && docker compose build && docker compose down && docker compose up -d && exit"
+      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.MAIN_BRANCH }} && touch .env && echo BOT_TOKEN=${{ secrets.BOT_TOKEN }} > .env && echo OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env && echo AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }} >> .env && echo AWS_ACCESS_SECRET=${{ secrets.AWS_ACCESS_SECRET }} >> .env && echo AWS_REGION=${{ secrets.AWS_REGION }} >> .env && echo AWS_MC_INSTANCE_ID=${{ secrets.AWS_MC_INSTANCE_ID }} >> .env && echo AWS_MC_SERVER_IP=${{ secrets.AWS_MC_SERVER_IP }} >> .env && git pull && docker compose build && docker compose down && docker compose up -d && exit"
     - name: cleanup
       run: rm -rf ~/.ssh

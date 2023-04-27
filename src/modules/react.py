@@ -1,6 +1,6 @@
 import discord
 
-async def role_on_react(message_id, emoji, member, add):
+async def role_on_react(message_id, emoji, member, add) -> None:
     print(f'{member}: reacted with {emoji} to {message_id}')
     if(str(message_id) == '811657538391113788' and str(emoji) == '✅'):
         role_name = 'Crowd'
