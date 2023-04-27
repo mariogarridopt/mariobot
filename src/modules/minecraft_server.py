@@ -25,8 +25,8 @@ def startServer() -> str:
         if state == 'stopped':
             # Start the instance
             ec2.start_instances(InstanceIds=[INSTANCE_ID])
-            return f'Server is starting at {SERVER_IP}'
+            return f'Server is starting at {SERVER_IP}. Map on: http://{SERVER_IP}:8123'
         else:
-            return f'Server is already running at {SERVER_IP}'
+            return f'Server is already running at {SERVER_IP}. Map on: http://{SERVER_IP}:8123'
     except:
         return ''
