@@ -1,6 +1,6 @@
 ![MarioBot](img/mario-banner.jpg)
 
-# MarioBot (Discord Bot)
+# MarioBot (Discord Bot) [![Python Unit Test](https://github.com/mariogarridopt/mariobot/actions/workflows/unittest.yml/badge.svg)](https://github.com/mariogarridopt/mariobot/actions/workflows/unittest.yml)
 > MarioBot is a mutipurpose Discord Bot built with [discord.py](https://github.com/Rapptz/discord.py)
 
 ## 📑 Requirements
