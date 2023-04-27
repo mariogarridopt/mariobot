@@ -101,7 +101,10 @@ def run_discord_bot():
     @client.tree.command(name="start-minecraft-server", description="Start the Minecraft Server")
     async def start_minecraft_server(interaction: discord.Interaction):
         str = minecraft_server.startServer()
+
         if str != '':
             await interaction.response.send_message(content=str)
+        else:
+            await interaction.response.send_message(content="We are experiencing some issues, please try again later...")
     
     client.run(TOKEN)

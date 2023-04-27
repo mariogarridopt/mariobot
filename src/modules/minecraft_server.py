@@ -16,7 +16,7 @@ def startServer() -> str:
         return ''
 
     try:
-        ec2 = boto3.resource('ec2', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=ACCESS_SECRET, region_name=REGION)
+        ec2 = boto3.client('ec2', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=ACCESS_SECRET, region_name=REGION)
 
         # Check if the instance is stopped
         response = ec2.describe_instances(InstanceIds=[INSTANCE_ID])
@@ -25,8 +25,8 @@ def startServer() -> str:
         if state == 'stopped':
             # Start the instance
             ec2.start_instances(InstanceIds=[INSTANCE_ID])
-            return f'Server is starting at {SERVER_IP}. Map on: http://{SERVER_IP}:8123'
+            return f'Server is starting at `{SERVER_IP}`. Map on: http://{SERVER_IP}:8123\n>>> Please wait a few minutes for the server to start up.'
         else:
-            return f'Server is already running at {SERVER_IP}. Map on: http://{SERVER_IP}:8123'
+            return f'Server is already running at `{SERVER_IP}`. Map on: http://{SERVER_IP}:8123'
     except:
         return ''
