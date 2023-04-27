@@ -32,7 +32,7 @@ def role_legueoflegends(lane) -> str:
     randChampIndex = random.randint(0, len(champList) - 1)
     pickedChamp = champList[randChampIndex]
 
-    return lane + ' ' + pickedChamp + ' ' + pickedBuild
+    return lane + ' - ' + pickedChamp + ' - ' + pickedBuild
 
 async def lane_autocomplete(
     interaction: discord.Interaction,
