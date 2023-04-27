@@ -1,3 +1,4 @@
+from typing import Optional
 import discord
 from discord.ext import commands
 from modules.timer_cog import timer_cog
@@ -87,13 +88,8 @@ def run_discord_bot():
 
     @client.tree.command(name="leagueroll", description="Let me pick a champion for you")
     @discord.app_commands.autocomplete(lane=roll.lane_autocomplete)
-    async def roll_league(interaction: discord.Interaction, lane: str):
+    async def roll_league(interaction: discord.Interaction, lane: Optional[str]='':
         res = roll.role_legueoflegends(lane)
-        await interaction.response.send_message(content='You are going to play ' + res)
-
-    @client.tree.command(name="leagueroll_random", description="Let me pick a champion for you")
-    async def roll_league_randomLane(interaction: discord.Interaction):
-        res = roll.role_legueoflegends("")
         await interaction.response.send_message(content='You are going to play ' + res)
 
     @client.tree.command(name="ai", description="Ask discord personal assistant a question")
