@@ -6,10 +6,10 @@ class aibot():
       self.prompt = ""
       openai.api_key = api_key
       
-  def init_ai_prompt(self):
+  def init_ai_prompt(self) -> str:
     return "The following is a conversation with an AI assistant named MarioBot. The assistant is helpful, creative, clever, funny, and very friendly.\n\n"
 
-  def ask_ai(self, question):
+  def ask_ai(self, question) -> str:
     if self.prompt == "":
       return ''
     

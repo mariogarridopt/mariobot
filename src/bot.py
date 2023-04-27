@@ -5,6 +5,7 @@ import modules.react as react
 import os
 import modules.roll as roll
 from modules.ai_assitant import aibot
+import modules.minecraft_server as minecraft_server
 
 def run_discord_bot():
     TOKEN = os.getenv('BOT_TOKEN', '')
@@ -100,5 +101,11 @@ def run_discord_bot():
     async def ask_ai(interaction: discord.Interaction, question: str):
         res = ai.ask_ai(question)
         await interaction.response.send_message(content="\n<@" + str(interaction.user.id) + "> asked: " + str(question) + '\n <@1096928829248917557>: **' + res + "**")
+
+    @client.tree.command(name="start-minecraft-server", description="Start the Minecraft Server")
+    async def start_minecraft_server(interaction: discord.Interaction):
+        str = minecraft_server.startServer()
+        if str != '':
+            await interaction.response.send_message(content=str)
     
     client.run(TOKEN)

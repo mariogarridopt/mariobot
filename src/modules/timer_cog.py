@@ -17,7 +17,7 @@ class timer_cog(commands.Cog):
         self.index += 1
 
     @staticmethod
-    def getCurretTime():
+    def getCurretTime() -> str:
         timeBending = time.time() + 300
         displayTime = time.strftime("%I:%M %p", time.localtime(timeBending))
         return displayTime
