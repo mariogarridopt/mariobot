@@ -1,6 +1,6 @@
 ![MarioBot](img/mario-banner.jpg)
 
-# MarioBot (Discord Bot) [![Python Unit Test](https://github.com/mariogarridopt/mariobot/actions/workflows/unittest.yml/badge.svg)](https://github.com/mariogarridopt/mariobot/actions/workflows/unittest.yml)
+# MarioBot (Discord Bot) ![latest tag)](https://img.shields.io/github/v/tag/mariogarridopt/mariobot) [![Python Unit Test](https://github.com/mariogarridopt/mariobot/actions/workflows/unittest.yml/badge.svg)](https://github.com/mariogarridopt/mariobot/actions/workflows/unittest.yml)
 > MarioBot is a mutipurpose Discord Bot built with [discord.py](https://github.com/Rapptz/discord.py)
 
 ## 📑 Requirements
@@ -26,14 +26,25 @@ Start the bot
 docker compose up -d
 ```
 
+Before submiting code please run the test suit:
+```sh
+    docker exec -it mario-bot "make test"
+```
+
 ## ⚙️ Configuration
 
 ⚠️ Please keep in mind that you should never commit or publicly distribute your token or API keys.⚠️
 
 We have the file `.env` and all the configs should be there and never pushed.
+**If you dont want to activate features that use this keys, you can leave them blank.**
 ```sh
-BOT_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXX.XXXXXX.XXXXXXXXXXXXXXXXXXXXXXXXXXX"
-OPENAI_API_KEY="sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+BOT_TOKEN=XXXXXXXXXXXXXXXXXXXXXXXX.XXXXXX.XXXXXXXXXXXXXXXXXXXXXXXXXXX
+OPENAI_API_KEY=sk-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+AWS_ACCESS_KEY=XXXXXXXXXXXXXXXXXXXXXXXX
+AWS_ACCESS_SECRET=XXXXXXXXXXXXXXXXXXXXXXXXXXX
+AWS_REGION=eu-west-3
+AWS_MC_INSTANCE_ID=i-00000000000000000
+AWS_MC_SERVER_IP=55.555.555.555
 ```
 
 ## 🗨 Features & Commands
@@ -53,6 +64,10 @@ Time (feature)
 AI (feature)
 - [X] **`chat with the bot on bot channel`**
 - [X] **`Command /ai`**
+
+AWS Commands (feature)
+- [X] **`start minecraft server on request`**
+- [X] **`Command /start-minecraft-server`**
 
 ## 🤝 Contributing
 
