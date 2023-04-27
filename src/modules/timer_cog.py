@@ -12,8 +12,12 @@ class timer_cog(commands.Cog):
 
     @tasks.loop(minutes=10)
     async def printer(self):
-        timeBending = time.time() + 300
-        displayTime = time.strftime("%I:%M %p", time.localtime(timeBending))
+        displayTime = timer_cog.getCurretTime()
         await self.bot.get_channel(1097001611479498793).edit(name= ("⏰ ~ " + displayTime))
         self.index += 1
 
+    @staticmethod
+    def getCurretTime():
+        timeBending = time.time() + 300
+        displayTime = time.strftime("%I:%M %p", time.localtime(timeBending))
+        return displayTime
