@@ -89,7 +89,7 @@ def run_discord_bot():
 
     @client.tree.command(name="leagueroll", description="Let me pick a champion for you")
     @discord.app_commands.autocomplete(lane=roll.lane_autocomplete)
-    async def roll_league(interaction: discord.Interaction, lane: Optional[str]='':
+    async def roll_league(interaction: discord.Interaction, lane: Optional[str]=""):
         res = roll.role_legueoflegends(lane)
         await interaction.response.send_message(content='You are going to play ' + res)
 
