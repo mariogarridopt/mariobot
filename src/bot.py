@@ -103,5 +103,7 @@ def run_discord_bot():
         str = minecraft_server.startServer()
         if str != '':
             await interaction.response.send_message(content=str)
-    
+        else:
+            await interaction.response.send_message(content="We are experiencing some issues, please try again later...")
+
     client.run(TOKEN)
