@@ -1,0 +1,11 @@
+{
+    "files.exclude": {
+        "**/__pycache__": true
+    },
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#0d0193"
+    },
+    "editor.rulers": [
+        80,120
+    ]
+}
