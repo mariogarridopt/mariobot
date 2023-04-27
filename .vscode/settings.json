@@ -1,14 +1,11 @@
-// Workspace settings
 {
-    // The following will hide the js and map files in the editor
     "files.exclude": {
         "**/__pycache__": true
     },
-    // The following will change the bottom bar color to blue
     "workbench.colorCustomizations": {
         "statusBar.background": "#0d0193"
     },
     "editor.rulers": [
         80,120
-    ],
+    ]
 }
