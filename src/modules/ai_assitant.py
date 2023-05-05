@@ -16,7 +16,7 @@ class aibot():
         model="text-davinci-003",
         prompt=self.prompt,
         temperature=0.9,
-        max_tokens=10,
+        max_tokens=100,
         top_p=1,
         n=1,
         stream=False,
