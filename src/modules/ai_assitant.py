@@ -1,5 +1,4 @@
 import openai
-import time
 
 class aibot():
   def __init__(self, api_key):
@@ -10,9 +9,6 @@ class aibot():
     return "The following is a conversation with an AI assistant named MarioBot. The assistant is helpful, creative, clever, funny, and very friendly.\n\n"
 
   def ask_ai(self, question) -> str:
-    if self.prompt == "":
-      return ''
-    
     self.prompt = self.init_ai_prompt() + "Human: " + str(question) + "\nAI:"
     
     try:
