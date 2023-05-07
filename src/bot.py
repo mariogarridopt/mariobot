@@ -7,6 +7,20 @@ import os
 import modules.roll as roll
 from modules.ai_assitant import aibot
 import modules.minecraft_server as minecraft_server
+import datetime
+
+last_ai_call = datetime.datetime.now()
+AI_CHANNEL_ID = 1098334511030349824
+AI_USER_ID = 1096928829248917557
+
+def ai_is_lonely() -> bool:
+    now = datetime.datetime.now()
+    if (now - last_ai_call) < datetime.timedelta(hours=24):
+        global last_ai_call
+        last_ai_call = now
+        return True
+    
+    return False
 
 def run_discord_bot():
     TOKEN = os.getenv('BOT_TOKEN', '')
@@ -48,11 +62,17 @@ def run_discord_bot():
         if message.author == client.user:
             return
         
-        if message.channel.id == 1098334511030349824:
+        if message.channel.id == AI_CHANNEL_ID:
             resp = ai.ask_ai(str(message.content))
             if resp != '':
                 await message.channel.send(resp)
+            global last_ai_call
+            last_ai_call = datetime.datetime.now()
 
+        if ai_is_lonely() == True:
+            channel = client.get_channel(AI_CHANNEL_ID)
+            msg = "Hi <@" + str(message.author.id) + "> 👋! I'm feeling lonely 😢, come and talk to me 😁."
+            await channel.send(msg)
 
     # react to message events
     @client.event
@@ -96,7 +116,9 @@ def run_discord_bot():
     @client.tree.command(name="ai", description="Ask discord personal assistant a question")
     async def ask_ai(interaction: discord.Interaction, question: str):
         res = ai.ask_ai(question)
-        await interaction.response.send_message(content="\n<@" + str(interaction.user.id) + "> asked: " + str(question) + '\n <@1096928829248917557>: **' + res + "**")
+        await interaction.response.send_message(content="\n<@" + str(interaction.user.id) + "> asked: " + str(question) + '\n <@' + AI_USER_ID + '>: **' + res + "**")
+        global last_ai_call
+        last_ai_call = datetime.datetime.now()
 
     @client.tree.command(name="start-minecraft-server", description="Start the Minecraft Server")
     async def start_minecraft_server(interaction: discord.Interaction):
