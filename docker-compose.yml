@@ -4,3 +4,5 @@ services:
     build: .
     env_file:
       - .env
+    labels:
+      - traefik.enable=false
