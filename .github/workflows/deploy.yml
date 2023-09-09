@@ -20,7 +20,7 @@ jobs:
 
     - name: Create .env from GitHub secrets
       run: |
-        echo  BOT_TOKEN=${{ secrets.BOT_TOKEN }}" > .env
+        echo BOT_TOKEN="${{ secrets.BOT_TOKEN }}" > .env
 
     - name: Transfer .env file to server
       run: scp .env ${{ vars.APP_HOST_USER }}@${{ vars.APP_HOST }}:${{ vars.APP_WORK_DIR }}/.env
