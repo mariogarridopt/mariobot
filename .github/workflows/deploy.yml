@@ -26,7 +26,7 @@ jobs:
       run: scp .env ${{ vars.APP_HOST_USER }}@${{ vars.APP_HOST }}:${{ vars.APP_WORK_DIR }}/.env
 
     - name: connect and pull
-      run: ssh ${{ vars.APP_HOST_USER }}@${{ vars.APP_HOST }} "cd ${{ vars.APP_WORK_DIR }} && git checkout ${{ vars.MAIN_BRANCH }} && docker-compose build && docker-compose down && docker-compose up -d && exit"
+      run: ssh ${{ vars.APP_HOST_USER }}@${{ vars.APP_HOST }} "cd ${{ vars.APP_WORK_DIR }} && git checkout ${{ vars.MAIN_BRANCH }} && docker compose build && docker compose down && docker compose up -d && exit"
 
     - name: cleanup
       run: |
