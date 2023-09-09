@@ -16,17 +16,17 @@ jobs:
       run: |
         install -m 600 -D /dev/null ~/.ssh/id_rsa
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ env.APP_HOST }} > ~/.ssh/known_hosts
+        ssh-keyscan -H ${{ vars.APP_HOST }} > ~/.ssh/known_hosts
 
     - name: Create .env from GitHub secrets
       run: |
         echo  BOT_TOKEN=${{ secrets.BOT_TOKEN }}" > .env
 
     - name: Transfer .env file to server
-      run: scp .env ${{ env.APP_HOST_USER }}@${{ env.APP_HOST }}:${{ env.APP_WORK_DIR }}/.env
+      run: scp .env ${{ vars.APP_HOST_USER }}@${{ vars.APP_HOST }}:${{ vars.APP_WORK_DIR }}/.env
 
     - name: connect and pull
-      run: ssh ${{ env.APP_HOST_USER }}@${{ env.APP_HOST }} "cd ${{ env.APP_WORK_DIR }} && git checkout ${{ env.MAIN_BRANCH }} && docker-compose build && docker-compose down && docker-compose up -d && exit"
+      run: ssh ${{ vars.APP_HOST_USER }}@${{ vars.APP_HOST }} "cd ${{ vars.APP_WORK_DIR }} && git checkout ${{ vars.MAIN_BRANCH }} && docker-compose build && docker-compose down && docker-compose up -d && exit"
 
     - name: cleanup
       run: |
