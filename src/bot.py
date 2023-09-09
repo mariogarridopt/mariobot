@@ -1,7 +1,6 @@
 from typing import Optional
 import discord
 from discord.ext import commands
-import modules.react as react
 import os
 import modules.roll as roll
 
@@ -27,6 +26,23 @@ def run_discord_bot():
 
         # Up and ready to go
         print(f'{client.user} is running!')
+
+
+    @client.event
+    async def on_voice_state_update(member, before, after):
+        SUFIX = "¡channel!"
+        CHANNEL_ID = 1148277892351000627
+        
+        # when a member join a voice channel = CHANNEL_ID
+        if after.channel and after.channel.id == CHANNEL_ID:
+            new_channel = await after.channel.guild.create_voice_channel(f'{member.name} {SUFIX}', category=after.channel.category)
+            await member.move_to(new_channel)
+
+        # when a member leaves a voice channel ending with SUFIX
+        if before.channel and len(before.channel.members) < 1:
+            if before.channel.name.endswith(SUFIX):
+                await before.channel.delete()
+
 
     # available commands
     @client.tree.command(name="roll", description="Test your luck, role a number between 1 and 10")

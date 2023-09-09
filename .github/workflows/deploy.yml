@@ -13,14 +13,22 @@ jobs:
     
     steps:
     - name: install ssh keys
-      # check this thread to understand why its needed:
-      # https://stackoverflow.com/a/70447517
       run: |
         install -m 600 -D /dev/null ~/.ssh/id_rsa
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+        ssh-keyscan -H ${{ env.APP_HOST }} > ~/.ssh/known_hosts
+
+    - name: Create .env from GitHub secrets
+      run: |
+        echo  BOT_TOKEN=${{ secrets.BOT_TOKEN }}" > .env
+
+    - name: Transfer .env file to server
+      run: scp .env ${{ env.APP_HOST_USER }}@${{ env.APP_HOST }}:${{ env.APP_WORK_DIR }}/.env
 
     - name: connect and pull
-      run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && git checkout ${{ secrets.MAIN_BRANCH }} && touch .env && echo BOT_TOKEN=${{ secrets.BOT_TOKEN }} > .env && echo OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} >> .env && echo AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }} >> .env && echo AWS_ACCESS_SECRET=${{ secrets.AWS_ACCESS_SECRET }} >> .env && echo AWS_REGION=${{ secrets.AWS_REGION }} >> .env && echo AWS_MC_INSTANCE_ID=${{ secrets.AWS_MC_INSTANCE_ID }} >> .env && echo AWS_MC_SERVER_IP=${{ secrets.AWS_MC_SERVER_IP }} >> .env && git pull && docker compose build && docker compose down && docker compose up -d && exit"
+      run: ssh ${{ env.APP_HOST_USER }}@${{ env.APP_HOST }} "cd ${{ env.APP_WORK_DIR }} && git checkout ${{ env.MAIN_BRANCH }} && docker-compose build && docker-compose down && docker-compose up -d && exit"
+
     - name: cleanup
-      run: rm -rf ~/.ssh
+      run: |
+        rm -rf ~/.ssh
+        rm .env
