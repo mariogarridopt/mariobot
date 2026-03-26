@@ -4,11 +4,22 @@ from discord.ext import commands
 import os
 import modules.roll as roll
 import modules.voicerank as rank
+from datetime import datetime
+
+def get_version():
+    current_file = __file__
+    mod_time = os.path.getmtime(current_file)
+    last_modified = datetime.fromtimestamp(mod_time)
+    return last_modified
 
 def run_discord_bot():
     TOKEN = os.getenv('BOT_TOKEN', '')
+    ALLOWED_GUILD_ID = os.getenv('GUILD', '')
     if TOKEN == '':
         print('Please provide a token to this bot...')
+        return
+    if ALLOWED_GUILD_ID == '':
+        print('Please provide a GUILD ID to this bot...')
         return
     
     intents = discord.Intents.default()
@@ -22,15 +33,13 @@ def run_discord_bot():
     @client.event
     async def on_ready():
         # Command sync
-        GUILD_ID = 811639406704066621
-        guild = discord.Object(id=GUILD_ID)
+        guild = discord.Object(id=ALLOWED_GUILD_ID)
         synced_commands = await client.tree.sync(guild=guild)
         #synced_commands = await client.tree.sync()
         print(f'{str(len(synced_commands))} commands synced')
 
         # Up and ready to go
         print(f'{client.user} is running!')
-
 
     @client.event
     async def on_voice_state_update(member, before, after):
@@ -71,4 +80,5 @@ def run_discord_bot():
         res = rank.user_time(interaction.guild, user)
         await interaction.response.send_message(content=res)
 
+    print(f"[Version] -> {get_version()} <-")
     client.run(TOKEN)
