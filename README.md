@@ -23,6 +23,8 @@ cp .env.example .env
 
 Start the bot
 ```sh
+docker compose down
+docker compose build --no-cache
 docker compose up -d
 ```
 
@@ -51,23 +53,6 @@ AWS_MC_SERVER_IP=55.555.555.555
 
 Rolls (commands)
 - [X] **`roll`**
-- [X] **`valorantroll`**
-- [X] **`leagueroll`**
-
-Roles (feature)
-- [X] **`add role on react to message`**
-- [X] **`remove role on react to message`**
-
-Time (feature)
-- [X] **`display current time on discord`**
-
-AI (feature)
-- [X] **`chat with the bot on bot channel`**
-- [X] **`Command /ai`**
-
-AWS Commands (feature)
-- [X] **`start minecraft server on request`**
-- [X] **`Command /start-minecraft-server`**
 
 ## 🤝 Contributing
 
