@@ -1,8 +1,7 @@
-version: '3'
 services:
   mario-bot:
     build: .
     env_file:
       - .env
-    labels:
-      - traefik.enable=false
+    volumes:
+      - ./src:/usr/app/src
