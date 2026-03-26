@@ -23,6 +23,12 @@ def user_leave(user_id):
 
     voice_totals[user_id] += session_time
 
+    #debug
+    print(
+        f"[VOICE TRACK] User {user_id} gained {format_time(session_time)} "
+        f"(total: {format_time(voice_totals[user_id])})"
+    )
+
 
 def format_time(seconds):
     hours = seconds // 3600
