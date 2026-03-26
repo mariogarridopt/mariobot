@@ -3,6 +3,7 @@ import discord
 from discord.ext import commands
 import os
 import modules.roll as roll
+import modules.voicerank as rank
 
 def run_discord_bot():
     TOKEN = os.getenv('BOT_TOKEN', '')
@@ -21,7 +22,10 @@ def run_discord_bot():
     @client.event
     async def on_ready():
         # Command sync
-        synced_commands = await client.tree.sync()
+        GUILD_ID = 811639406704066621
+        guild = discord.Object(id=GUILD_ID)
+        synced_commands = await client.tree.sync(guild=guild)
+        #synced_commands = await client.tree.sync()
         print(f'{str(len(synced_commands))} commands synced')
 
         # Up and ready to go
@@ -32,6 +36,13 @@ def run_discord_bot():
     async def on_voice_state_update(member, before, after):
         SUFIX = "¡channel!"
         CHANNEL_ID = 1148277892351000627
+
+        # Track voice time
+        if before.channel is None and after.channel is not None:
+            rank.user_join(member.id)
+
+        elif before.channel is not None and after.channel is None:
+            rank.user_leave(member.id)
         
         # when a member join a voice channel = CHANNEL_ID
         if after.channel and after.channel.id == CHANNEL_ID:
@@ -50,15 +61,14 @@ def run_discord_bot():
         res = roll.role_int()
         await interaction.response.send_message(content=res)
     
-    @client.tree.command(name="valorantroll", description="Let me pick an agent for you")
-    async def roll_valorant(interaction: discord.Interaction):
-        res = roll.role_valorant()
-        await interaction.response.send_message(content='You are going to play ' + res)
+    @client.tree.command(name="topvoice", description="Rank of time spent in voice channels")
+    async def topvoice(interaction: discord.Interaction):
+        res = rank.top_list(interaction.guild)
+        await interaction.response.send_message(content=res)
 
-    @client.tree.command(name="leagueroll", description="Let me pick a champion for you")
-    @discord.app_commands.autocomplete(lane=roll.lane_autocomplete)
-    async def roll_league(interaction: discord.Interaction, lane: Optional[str]=""):
-        res = roll.role_legueoflegends(lane)
-        await interaction.response.send_message(content='You are going to play ' + res)
+    @client.tree.command(name="voicetime", description="Show how much time a user has spent in voice channels")
+    async def voicetime(interaction: discord.Interaction, user: discord.Member):
+        res = rank.user_time(interaction.guild, user)
+        await interaction.response.send_message(content=res)
 
     client.run(TOKEN)
